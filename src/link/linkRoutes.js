@@ -22,7 +22,7 @@ const linkRoutes = () => {
           <Route
             path="/"
             element={
-              <Container size={"sm"}>
+              <Container size={"sm"} px={0}>
                 <Home />
               </Container>
             }

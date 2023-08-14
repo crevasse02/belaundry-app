@@ -32,13 +32,23 @@ const Home = ({ allReport, getReports }) => {
     getReports();
   }, [getReports]);
   console.log(allReport);
-
+  const income = [...allReport].sort((a, b) => b.income - a.income);
   return (
-    <Box>
+    <Box textAlign={"left"}>
+      <Text
+        px={7}
+        fontWeight={700}
+        display={{ base: "none", md: "block" }}
+        fontSize={41}
+      >
+        Home
+      </Text>
       <Card m={7} p={7}>
         <CardHeader>
           <Flex justifyContent={"space-between"} alignItems={"center"} mb={5}>
-            <Text>Product Sold</Text>
+            <Text fontWeight={700} fontSize={20}>
+              Product Sold
+            </Text>
             <Card variant={"outline"} p={2}>
               <Flex>
                 <Text>This week</Text>
@@ -48,7 +58,11 @@ const Home = ({ allReport, getReports }) => {
           </Flex>
         </CardHeader>
         <Divider color={"grey"}></Divider>
-        <Flex justifyContent={"space-around"} alignItems={"end"}>
+        <Flex
+          justifyContent={"space-around"}
+          gap={{ base: "3", md: "0" }}
+          alignItems={"end"}
+        >
           {allReport.map((item) => {
             const dateString = item.created_at;
             const date = new Date(dateString);
@@ -63,7 +77,11 @@ const Home = ({ allReport, getReports }) => {
                 <Text color={"#B2C5D4"} fontWeight={400} fontSize={13}>
                   {item.total} Item
                 </Text>
-                <Card bgColor={"#3E7DAB"} w={70} h={item.total + 100 + "px"}>
+                <Card
+                  bgColor={"#3E7DAB"}
+                  w={{ base: "100%", md: "70px" }}
+                  h={item.total + 100 + "px"}
+                >
                   <div></div>
                 </Card>
                 <Text color={"#B2C5D4"} fontWeight={400} fontSize={13}>
@@ -75,7 +93,11 @@ const Home = ({ allReport, getReports }) => {
         </Flex>
       </Card>
 
-      <Card w={"30%"} m={7} p={7}>
+      <Card
+        w={{ base: "100%", md: "30%" }}
+        m={{ base: "0", md: "7" }}
+        p={{ base: "5", md: "7" }}
+      >
         <CardHeader>
           <Flex justifyContent={"space-between"} alignItems={"center"} mb={5}>
             <Text>Top selling product</Text>
@@ -96,10 +118,10 @@ const Home = ({ allReport, getReports }) => {
               </Tr>
             </Thead>
             <Tbody>
-              {allReport.map((item, index) => {
+              {income.map((item, index) => {
                 return (
                   <Tr>
-                    <Td>Item {index} </Td>
+                    <Td>Item {index + 1} </Td>
                     <Td>$ {item.income}</Td>
                   </Tr>
                 );

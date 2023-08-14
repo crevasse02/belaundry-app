@@ -17,8 +17,19 @@ import {
   MenuDivider,
   MenuItem,
   MenuList,
+  Image,
+  Spacer,
 } from "@chakra-ui/react";
-
+import Logo from "../assets/logo.png";
+import subLogo from "../assets/cardDot.webp";
+import {
+  FiHome,
+  FiFolder,
+  FiBarChart2,
+  FiSettings,
+  FiMenu,
+  FiChevronDown,
+} from "react-icons/fi";
 import { useLocation, NavLink } from "react-router-dom";
 
 // import {
@@ -35,22 +46,22 @@ import { useLocation, NavLink } from "react-router-dom";
 const LinkItems = [
   {
     name: "Home",
-    icon: "fi fi-rr-address-book",
+    icon: FiHome,
     link: "",
   },
   {
     name: "Products",
-    icon: "fi fi-brands-whatsapp",
+    icon: FiFolder,
     link: "/product",
   },
   {
     name: "Sales",
-    icon: "fi fi-brands-whatsapp",
+    icon: FiBarChart2,
     link: "/sales",
   },
   {
     name: "Settings",
-    icon: "fi fi-brands-whatsapp",
+    icon: FiSettings,
     link: "/setting",
   },
 ];
@@ -68,18 +79,28 @@ const SidebarContent = ({ onClose, ...rest }) => {
       pos="fixed"
       color={"white"}
       h="full"
+      textAlign={"left"}
       {...rest}
     >
       <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
+        <Flex alignItems={"start"}>
+          <Image src={Logo} w={30} />
+          <Image src={subLogo} w={30} pl={1} pr={3} />
+        </Flex>
+
         <Text fontSize="2xl" fontFamily="monospace" fontWeight="bold">
           BeLaundry
         </Text>
         <CloseButton display={{ base: "flex", md: "none" }} onClick={onClose} />
       </Flex>
+      <Text ml={5} mt={5} fontWeight={700}>
+        Menu
+      </Text>
       {LinkItems.map((item) => {
         return (
           <NavItem
             key={item.name}
+            icon={item.icon}
             name={item.name}
             link={item.link}
             active={"/admin" + item.link === location.pathname ? true : false}
@@ -100,7 +121,7 @@ const SidebarContent = ({ onClose, ...rest }) => {
   );
 };
 
-const NavItem = ({ name, link, active, ...rest }) => {
+const NavItem = ({ icon, name, link, active, ...rest }) => {
   return (
     <NavLink
       to={"/admin" + link}
@@ -123,6 +144,14 @@ const NavItem = ({ name, link, active, ...rest }) => {
           }}
           {...rest}
         >
+          {icon && (
+            <Icon
+              mr={4}
+              fontSize={25}
+              _groupHover={{ color: "white" }}
+              as={icon}
+            />
+          )}
           {name}
         </Flex>
       </Box>
@@ -148,20 +177,10 @@ const MobileNav = ({ onOpen, ...rest }) => {
         onClick={onOpen}
         variant="outline"
         aria-label="open menu"
+        icon={<FiMenu />}
       />
 
-      <Text
-        display={{ base: "flex", md: "none" }}
-        fontSize="2xl"
-        fontFamily="monospace"
-        fontWeight="bold"
-      >
-        Logo
-      </Text>
-      <Text fontWeight={700} fontSize={41}>
-        Home
-      </Text>
-
+      <Spacer />
       <HStack spacing={{ base: "0", md: "6" }}>
         <IconButton size="lg" variant="ghost" aria-label="open menu" />
         <Flex alignItems={"center"}>
@@ -189,7 +208,9 @@ const MobileNav = ({ onOpen, ...rest }) => {
                     Admin
                   </Text>
                 </VStack>
-                <Box display={{ base: "none", md: "flex" }}></Box>
+                <Box display={{ base: "none", md: "flex" }}>
+                  <FiChevronDown />
+                </Box>
               </HStack>
             </MenuButton>
             <MenuList
@@ -215,7 +236,7 @@ const Sidebar = () => {
     <Box
       minH="100vh"
       bg={useColorModeValue("gray.100", "gray.900")}
-      bgColor={"#E7F5FD"}
+      bgColor={"#CAECFF"}
     >
       <SidebarContent
         onClose={() => onClose}

@@ -13,7 +13,7 @@ const admin = () => {
           ml={{ base: 0, md: 60 }}
           position={"absolute"}
           top={"10%"}
-          bgColor={"#E7F5FD"}
+          bgColor={"#CAECFF"}
           w={"-webkit-fill-available"}
         >
           <Outlet />

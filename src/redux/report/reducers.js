@@ -2,6 +2,7 @@ import actions from "./actions";
 
 const initialState = {
   allReport: [],
+  allCategory: [],
 };
 
 export default function reducers(state = initialState, action) {
